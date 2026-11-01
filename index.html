@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>工具箱</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/shell.css">
+<link rel="stylesheet" href="css/password.css">
+<link rel="stylesheet" href="css/c-cheatsheet.css">
+<link rel="stylesheet" href="css/markdown-reader.css">
+<link rel="stylesheet" href="css/whiteboard.css">
+<link rel="stylesheet" href="css/markdown-cheatsheet.css">
+<link rel="stylesheet" href="css/ua-detector.css">
+<link rel="stylesheet" href="css/qr-generator.css">
+<link rel="stylesheet" href="css/totp.css">
+<link rel="stylesheet" href="css/markdown-editor.css">
+<link rel="stylesheet" href="css/zip-tool.css">
+</head>
+<body>
+<div class="app">
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-name">工具箱</span>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+    <div class="sidebar-footer">
+      <span>测试版 v0.1</span>
+    </div>
+  </aside>
+
+  <div class="main-wrapper">
+    <header class="topbar">
+      <button class="icon-btn sidebar-toggle" id="sidebarToggle" title="切换侧边栏">☰</button>
+      <div class="topbar-title" id="pageTitle"></div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeBtn" title="切换主题 (Ctrl+D)">🌙</button>
+      </div>
+    </header>
+    <main class="views" id="views"></main>
+  </div>
+</div>
+
+<!-- 数据文件（必须在页面脚本之前加载） -->
+<script src="data/c-cheatsheet-data.js"></script>
+<script src="data/md-cheatsheet-data.js"></script>
+
+<!-- 外部依赖库（已本地化，离线可用） -->
+<script src="js/lib/qrcode.js"></script>
+<script src="js/lib/fflate.js"></script>
+
+<!-- 核心依赖 -->
+<script src="js/core.js"></script>
+<script src="js/router.js"></script>
+
+<!-- 页面模块 -->
+<script src="js/pages/password.js"></script>
+<script src="js/pages/c-cheatsheet.js"></script>
+<script src="js/pages/markdown-reader.js"></script>
+<script src="js/pages/markdown-cheatsheet.js"></script>
+<script src="js/pages/whiteboard.js"></script>
+<script src="js/pages/ua-detector.js"></script>
+<script src="js/pages/qr-generator.js"></script>
+<script src="js/pages/totp.js"></script>
+<script src="js/pages/markdown-editor.js"></script>
+<script src="js/pages/zip-tool.js"></script>
+
+<script src="js/app.js"></script>
+</body>
+</html>

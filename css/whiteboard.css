@@ -1,0 +1,117 @@
+/* =========================================================
+   Web 画板 · 作用域 .page-whiteboard
+   ========================================================= */
+.page-whiteboard{
+  display:flex; flex-direction:column;
+  height:100%; background:var(--c-bg); overflow:hidden;
+}
+
+/* 顶部工具栏 */
+.page-whiteboard .toolbar{
+  position:relative; flex:0 0 auto;
+  display:flex; align-items:center; flex-wrap:wrap; gap:8px;
+  padding:10px 14px; background:var(--c-surface);
+  border-bottom:1px solid var(--c-border); box-shadow:var(--shadow-sm); z-index:20;
+}
+.page-whiteboard .toolbar button{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:7px 13px; font-size:14px; color:var(--c-text-2);
+  background:var(--c-surface-2); border:1px solid var(--c-border);
+  border-radius:var(--r); transition:.15s; user-select:none;
+}
+.page-whiteboard .toolbar button:hover{background:var(--c-surface-3)}
+.page-whiteboard .toolbar button:active{transform:scale(.96)}
+.page-whiteboard .toolbar button:disabled{opacity:.4; cursor:not-allowed; transform:none;}
+.page-whiteboard .toolbar button.active{
+  background:var(--c-accent); border-color:var(--c-accent); color:#fff;
+  box-shadow:0 2px 8px var(--c-accent-soft);
+}
+.page-whiteboard .divider{width:1px; height:22px; background:var(--c-border); margin:0 2px;}
+
+/* 颜色与笔刷 */
+.page-whiteboard input[type="color"]{
+  width:42px; height:36px; padding:0; border:1px solid var(--c-border);
+  border-radius:var(--r); background:var(--c-surface); cursor:pointer;
+}
+.page-whiteboard input[type="color"]::-webkit-color-swatch-wrapper { padding: 3px; }
+.page-whiteboard input[type="color"]::-webkit-color-swatch { border: none; border-radius:4px; }
+
+.page-whiteboard .size-wrap{display:inline-flex; align-items:center; gap:8px; padding:0 2px;}
+.page-whiteboard input[type="range"]{width:100px; accent-color:var(--c-accent); cursor:pointer;}
+.page-whiteboard .size-label{font-size:13px; color:var(--c-text-dim); min-width:22px; text-align:center;}
+
+/* 画布标签栏 */
+.page-whiteboard .board-bar{
+  flex:0 0 auto; display:flex; align-items:center; gap:8px;
+  padding:7px 14px; background:var(--c-surface-2); border-bottom:1px solid var(--c-border); z-index:15;
+}
+.page-whiteboard .board-tabs{
+  display:flex; gap:6px; overflow-x:auto; flex:1; min-width:0; padding:1px; scrollbar-width:none;
+}
+.page-whiteboard .board-tabs::-webkit-scrollbar{display:none}
+.page-whiteboard .tab{
+  flex:0 0 auto; display:inline-flex; align-items:center; gap:6px;
+  padding:5px 8px 5px 12px; border-radius:var(--r); background:var(--c-surface-3);
+  border:1px solid var(--c-border); font-size:13px; color:var(--c-text-2); cursor:pointer; white-space:nowrap; transition:.15s;
+}
+.page-whiteboard .tab:hover{background:var(--c-surface);}
+.page-whiteboard .tab.active{background:var(--c-accent); border-color:var(--c-accent); color:#fff;}
+.page-whiteboard .tab .tab-name{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.page-whiteboard .tab .close{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:16px; height:16px; border-radius:4px; font-size:14px; opacity:.55;
+}
+.page-whiteboard .tab .close:hover{opacity:1; background:rgba(0,0,0,.12);}
+.page-whiteboard .tab.active .close:hover{background:rgba(255,255,255,.25);}
+.page-whiteboard .add-board{
+  flex:0 0 auto; padding:5px 12px; font-size:13px; color:var(--c-accent);
+  background:var(--c-accent-soft); border:1px solid var(--c-accent-border); border-radius:var(--r); cursor:pointer;
+}
+.page-whiteboard .add-board:hover{background:var(--c-surface);}
+
+/* 画布区域 */
+.page-whiteboard .wrap{position:relative; flex:1; min-height:0; overflow:hidden; background:var(--c-surface);}
+.page-whiteboard #board{
+  position:absolute; inset:0; width:100%; height:100%; display:block;
+  background-color:var(--c-surface); background-position:center; background-repeat:no-repeat; background-size:contain;
+  touch-action:none; cursor:crosshair;
+}
+.page-whiteboard .drop-overlay{
+  position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+  background:var(--c-accent-soft); border:2px dashed var(--c-accent); z-index:40;
+}
+.page-whiteboard .drop-overlay.show{display:flex;}
+.page-whiteboard .drop-hint{
+  padding:14px 22px; font-size:15px; font-weight:600; color:var(--c-accent-hover);
+  background:var(--c-surface); border-radius:var(--r); box-shadow:var(--shadow);
+}
+
+/* 文字输入框 */
+.page-whiteboard .canvas-text-input{
+  position:absolute; margin:0; padding:0; border:none; outline:1px dashed var(--c-text-dim); outline-offset:2px;
+  border-radius:3px; background:rgba(255,255,255,.78); line-height:1.25;
+  min-width:90px; min-height:1.25em; z-index:5; caret-color:var(--c-accent);
+  resize:none; overflow:hidden; white-space:pre; display:block; font-family:var(--font-sans);
+}
+html[data-theme="dark"] .page-whiteboard .canvas-text-input{background:rgba(0,0,0,.6); color:#fff;}
+
+/* 背景面板 */
+.page-whiteboard .bg-panel{
+  position:absolute; top:calc(100% + 8px); right:14px; width:320px; max-width:calc(100vw - 28px);
+  padding:14px; background:var(--c-surface); border:1px solid var(--c-border);
+  border-radius:var(--r-lg); box-shadow:var(--shadow-lg); display:none; z-index:200;
+}
+.page-whiteboard .bg-panel.open{display:block;}
+.page-whiteboard .bg-panel h4{margin:0 0 10px; font-size:13px; font-weight:600; color:var(--c-text-2);}
+.page-whiteboard .bg-row{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+.page-whiteboard .bg-row:last-child{margin-bottom:0;}
+.page-whiteboard .bg-row input[type="text"]{flex:1; padding:7px 10px;}
+.page-whiteboard .bg-row select{flex:1; padding:7px 8px; cursor:pointer;}
+.page-whiteboard .bg-row button{
+  padding:7px 12px; font-size:13px; color:var(--c-text-2);
+  background:var(--c-surface-3); border:1px solid var(--c-border); border-radius:var(--r);
+}
+.page-whiteboard .bg-row button:hover{background:var(--c-border);}
+.page-whiteboard .bg-row button.primary{background:var(--c-accent); border-color:var(--c-accent); color:#fff;}
+.page-whiteboard .bg-row button:disabled{opacity:.4; cursor:not-allowed;}
+.page-whiteboard .bg-hint{font-size:12px; color:var(--c-warn); margin-top:8px;}

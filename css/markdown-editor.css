@@ -1,0 +1,231 @@
+/* =========================================================
+   Markdown 编辑器 · 作用域 .page-markdown-editor
+   ========================================================= */
+.page-markdown-editor {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-surface);
+  overflow: hidden;
+}
+
+/* 顶部工具栏（历史操作、导出） */
+.page-markdown-editor .me-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 16px;
+  background: var(--c-surface-2);
+  border-bottom: 1px solid var(--c-border);
+  flex: 0 0 auto;
+}
+.page-markdown-editor .me-actions {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.page-markdown-editor .me-actions::-webkit-scrollbar {
+  display: none;
+}
+
+.page-markdown-editor button {
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--c-text);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  padding: 5px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: .15s;
+}
+.page-markdown-editor button:hover:not(:disabled) {
+  background: var(--c-surface-3);
+  border-color: var(--c-border-strong);
+}
+.page-markdown-editor button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.page-markdown-editor button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+/* 格式化工具栏 */
+.page-markdown-editor .me-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--c-border);
+  background: var(--c-surface);
+  flex: 0 0 auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.page-markdown-editor .me-toolbar::-webkit-scrollbar {
+  display: none;
+}
+.page-markdown-editor .me-toolbar button {
+  padding: 4px 8px;
+  min-width: 32px;
+  font-size: var(--fs-sm);
+}
+.page-markdown-editor .me-toolbar .sep {
+  width: 1px;
+  height: 18px;
+  background: var(--c-border);
+  margin: 0 4px;
+  flex: 0 0 auto;
+}
+
+/* 主体分栏 */
+.page-markdown-editor .me-panes {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.page-markdown-editor .me-pane {
+  flex: 1 1 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.page-markdown-editor .me-divider {
+  width: 1px;
+  background: var(--c-border);
+  flex: 0 0 auto;
+}
+
+/* 编辑区 */
+.page-markdown-editor #me-editor {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.6;
+  background: var(--c-surface);
+  color: var(--c-text);
+  tab-size: 2;
+}
+.page-markdown-editor #me-editor::placeholder {
+  color: var(--c-text-faint);
+}
+
+/* 预览区 */
+.page-markdown-editor #me-preview {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px 60px;
+  background: var(--c-surface);
+}
+
+/* Markdown 排版 */
+.page-markdown-editor .markdown-body {
+  line-height: 1.7;
+  font-size: var(--fs-base);
+  word-wrap: break-word;
+  color: var(--c-text);
+}
+.page-markdown-editor .markdown-body > *:first-child { margin-top: 0; }
+.page-markdown-editor .markdown-body h1,
+.page-markdown-editor .markdown-body h2,
+.page-markdown-editor .markdown-body h3,
+.page-markdown-editor .markdown-body h4,
+.page-markdown-editor .markdown-body h5,
+.page-markdown-editor .markdown-body h6 {
+  margin: 1em 0 .5em;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.page-markdown-editor .markdown-body h1 { font-size: 1.8em; padding-bottom: .3em; border-bottom: 1px solid var(--c-border); }
+.page-markdown-editor .markdown-body h2 { font-size: 1.4em; padding-bottom: .3em; border-bottom: 1px solid var(--c-border); }
+.page-markdown-editor .markdown-body h3 { font-size: 1.2em; }
+.page-markdown-editor .markdown-body p { margin: .6em 0; }
+.page-markdown-editor .markdown-body a { color: var(--c-accent); text-decoration: none; }
+.page-markdown-editor .markdown-body a:hover { text-decoration: underline; }
+.page-markdown-editor .markdown-body code {
+  background: var(--c-surface-3);
+  padding: .15em .4em;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: .88em;
+}
+.page-markdown-editor .markdown-body pre {
+  background: var(--c-code-bg);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: .8em 0;
+  border: 1px solid var(--c-border);
+}
+.page-markdown-editor .markdown-body pre code {
+  background: none;
+  padding: 0;
+  font-size: .88em;
+  color: var(--c-code-text);
+}
+.page-markdown-editor .markdown-body blockquote {
+  margin: .8em 0;
+  padding: .2em 1em;
+  border-left: 4px solid var(--c-accent);
+  background: var(--c-surface-2);
+  color: var(--c-text-dim);
+  border-radius: 0 6px 6px 0;
+}
+.page-markdown-editor .markdown-body ul,
+.page-markdown-editor .markdown-body ol {
+  padding-left: 1.5em;
+  margin: .6em 0;
+}
+.page-markdown-editor .markdown-body table {
+  border-collapse: collapse;
+  margin: .8em 0;
+  display: block;
+  overflow-x: auto;
+}
+.page-markdown-editor .markdown-body th,
+.page-markdown-editor .markdown-body td {
+  border: 1px solid var(--c-border);
+  padding: 6px 12px;
+}
+.page-markdown-editor .markdown-body th {
+  background: var(--c-surface-2);
+  font-weight: 600;
+}
+
+/* 底部状态栏 */
+.page-markdown-editor .me-statusbar {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  padding: 4px 16px;
+  font-size: 11px;
+  color: var(--c-text-dim);
+  border-top: 1px solid var(--c-border);
+  background: var(--c-surface-2);
+  flex: 0 0 auto;
+}
+
+/* 移动端适配 */
+@media (max-width: 720px) {
+  .page-markdown-editor .me-topbar { padding: 6px 10px; }
+  .page-markdown-editor .me-actions { width: 100%; justify-content: flex-end; }
+  
+  .page-markdown-editor .me-panes { flex-direction: column; }
+  .page-markdown-editor .me-pane { flex: 1 1 50%; min-height: 0; }
+  .page-markdown-editor .me-divider { width: auto; height: 1px; }
+  
+  .page-markdown-editor #me-editor {
+    font-size: 16px; /* 防止 iOS 自动放大 */
+    padding: 12px;
+  }
+  .page-markdown-editor #me-preview { padding: 12px; }
+}

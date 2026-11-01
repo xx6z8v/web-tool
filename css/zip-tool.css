@@ -1,0 +1,287 @@
+/* =========================================================
+   ZIP 工具 · 作用域 .page-zip-tool · 左控右列工作台
+   ========================================================= */
+.page-zip-tool {
+  padding: var(--sp-4);
+  /* 让整个页面撑满视口高度，避免页面整体滚动，而是内部区域滚动 */
+  height: calc(100vh - var(--topbar-h) - 32px); 
+  display: flex;
+  flex-direction: column;
+}
+.page-zip-tool .zip-workspace {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr); /* 左侧固定宽，右侧自适应 */
+  gap: var(--sp-4);
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------- 通用容器 ---------- */
+.page-zip-tool .zip-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-height: 0;
+}
+.page-zip-tool .zip-zone {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.page-zip-tool .zip-zone.grow {
+  flex: 1;
+}
+.page-zip-tool .zip-zone.shrink {
+  flex: 0 0 auto;
+}
+
+/* ---------- 头部 ---------- */
+.page-zip-tool .zip-zone-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--c-border);
+  background: var(--c-surface-2);
+  flex-wrap: wrap;
+  min-height: 42px;
+}
+.page-zip-tool .zip-zone-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text);
+  min-width: 0;
+  flex: 1;
+}
+.page-zip-tool .zip-zone-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  color: var(--c-accent-hover);
+  background: var(--c-accent-soft);
+  border: 1px solid var(--c-accent-border);
+  white-space: nowrap;
+}
+.page-zip-tool .zip-zone-badge.muted {
+  color: var(--c-text-dim);
+  background: var(--c-surface-3);
+  border-color: var(--c-border);
+}
+
+/* ---------- 内容区 ---------- */
+.page-zip-tool .zip-zone-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--sp-3);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.page-zip-tool .zip-zone-body::-webkit-scrollbar { width: 6px; }
+.page-zip-tool .zip-zone-body::-webkit-scrollbar-thumb {
+  background: var(--c-border-strong);
+  border-radius: 3px;
+}
+
+/* ---------- 拖入区（自适应高度） ---------- */
+.page-zip-tool .zip-drop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 2px dashed var(--c-border-strong);
+  border-radius: var(--r);
+  background: var(--c-surface-2);
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+  flex: 1 1 auto;
+  min-height: 160px;
+}
+.page-zip-tool .zip-drop:hover,
+.page-zip-tool .zip-drop.dragover {
+  border-color: var(--c-accent);
+  background: var(--c-accent-soft);
+}
+.page-zip-tool .zip-drop input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+}
+.page-zip-tool .zip-drop-icon { font-size: 40px; margin-bottom: 4px; }
+.page-zip-tool .zip-drop-text { font-size: var(--fs-base); font-weight: 600; color: var(--c-text); }
+.page-zip-tool .zip-drop-sub { font-size: var(--fs-xs); color: var(--c-text-dim); }
+
+/* 紧凑模式：有内容时变成小横条 */
+.page-zip-tool .zip-drop.compact {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 8px 14px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+  border-width: 1.5px;
+}
+.page-zip-tool .zip-drop.compact .zip-drop-icon { font-size: 16px; margin: 0; }
+.page-zip-tool .zip-drop.compact .zip-drop-text { font-size: 13px; font-weight: 500; color: var(--c-text-dim); }
+.page-zip-tool .zip-drop.compact .zip-drop-sub { display: none; }
+.page-zip-tool .zip-drop.compact::before { content: '＋'; font-size: 14px; font-weight: 700; color: var(--c-accent); line-height: 1; margin-right: 4px; }
+
+/* ---------- 左栏压缩包卡片 ---------- */
+.page-zip-tool .zip-archive-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-3);
+  text-align: center;
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r);
+  flex: 1;
+  justify-content: center;
+}
+.page-zip-tool .zip-archive-icon { font-size: 52px; line-height: 1; }
+.page-zip-tool .zip-archive-name { font-size: var(--fs-base); font-weight: 600; color: var(--c-text); word-break: break-all; line-height: 1.4; }
+.page-zip-tool .zip-archive-meta { font-size: var(--fs-sm); color: var(--c-text-dim); }
+
+/* 统计小标签 */
+.page-zip-tool .zip-stats-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 4px;
+}
+.page-zip-tool .zip-stats-chips span {
+  font-size: 11px; padding: 2px 8px; border-radius: var(--r-sm);
+  background: var(--c-surface-3); color: var(--c-text-2);
+}
+.page-zip-tool .zip-stats-chips b { color: var(--c-text); font-weight: 600; }
+
+/* ---------- 控制台（左下） ---------- */
+.page-zip-tool .zip-console {
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.page-zip-tool .console-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+.page-zip-tool .action-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; padding: var(--sp-3) var(--sp-2);
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  border-radius: var(--r); cursor: pointer; transition: .15s;
+  font-family: inherit; color: var(--c-text-2);
+}
+.page-zip-tool .action-btn:hover:not(:disabled) {
+  border-color: var(--c-accent); color: var(--c-accent);
+  background: var(--c-accent-soft); transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+.page-zip-tool .action-btn:disabled { opacity: .4; cursor: not-allowed; background: var(--c-surface); }
+.page-zip-tool .action-btn .arrow { font-size: 20px; font-weight: bold; color: var(--c-accent); }
+.page-zip-tool .action-btn:disabled .arrow { color: var(--c-text-faint); }
+.page-zip-tool .action-btn .action-label { font-size: var(--fs-sm); font-weight: 600; }
+.page-zip-tool .action-btn.loading .arrow { animation: zipSpin 1s linear infinite; }
+@keyframes zipSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* 表单控件 */
+.page-zip-tool .console-options {
+  display: flex; flex-direction: column; gap: var(--sp-2);
+}
+.page-zip-tool .opt-row {
+  display: flex; align-items: center; gap: var(--sp-2);
+}
+.page-zip-tool .opt-label {
+  font-size: 11px; color: var(--c-text-dim); font-weight: 600; white-space: nowrap;
+}
+.page-zip-tool .opt-input {
+  flex: 1; min-width: 0; padding: 4px 8px; font-size: 12px;
+  border: 1px solid var(--c-border); border-radius: var(--r-sm);
+  background: var(--c-surface); color: var(--c-text); outline: none; font-family: inherit;
+}
+.page-zip-tool .opt-input:focus { border-color: var(--c-accent); box-shadow: 0 0 0 2px var(--c-accent-soft); }
+.page-zip-tool .opt-select {
+  padding: 4px 8px; font-size: 12px; border: 1px solid var(--c-border);
+  border-radius: var(--r-sm); background: var(--c-surface); color: var(--c-text);
+  outline: none; font-family: inherit; cursor: pointer;
+}
+.page-zip-tool .opt-select:focus { border-color: var(--c-accent); }
+
+/* 下载包按钮 */
+.page-zip-tool .btn-dl-archive {
+  width: 100%; padding: 8px; border-radius: var(--r-sm);
+  background: var(--c-ok); color: #fff; font-weight: 600; font-size: var(--fs-sm);
+  border: none; cursor: pointer; transition: .15s;
+}
+.page-zip-tool .btn-dl-archive:hover { filter: brightness(.9); }
+
+/* ---------- 右栏文件列表 ---------- */
+.page-zip-tool .zip-toolbar-btn {
+  padding: 4px 10px; font-size: 12px; font-weight: 500;
+  border-radius: var(--r-sm); border: 1px solid var(--c-border);
+  background: var(--c-surface); color: var(--c-text-2); cursor: pointer;
+  transition: .15s; font-family: inherit; white-space: nowrap;
+}
+.page-zip-tool .zip-toolbar-btn:hover:not(:disabled) { border-color: var(--c-accent); color: var(--c-accent); background: var(--c-accent-soft); }
+.page-zip-tool .zip-toolbar-btn.danger:hover:not(:disabled) { border-color: var(--c-danger); color: var(--c-danger); background: var(--c-danger-soft); }
+
+.page-zip-tool .zip-files-list { display: flex; flex-direction: column; gap: 4px; }
+.page-zip-tool .zip-file-item {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  padding: 6px 10px; background: var(--c-surface-2); border: 1px solid var(--c-border);
+  border-radius: var(--r-sm); font-size: var(--fs-sm); transition: .15s;
+}
+.page-zip-tool .zip-file-item.selected { border-color: var(--c-accent-border); background: var(--c-accent-soft); }
+.page-zip-tool .zip-file-check { width: 16px; height: 16px; accent-color: var(--c-accent); cursor: pointer; flex-shrink: 0; }
+.page-zip-tool .zip-file-name {
+  flex: 1; min-width: 0; color: var(--c-text); word-break: break-all;
+  cursor: pointer; display: flex; align-items: baseline; gap: 4px; user-select: none;
+}
+.page-zip-tool .zip-file-name .path { color: var(--c-text-faint); font-size: 11px; font-family: var(--font-mono); flex-shrink: 0; }
+.page-zip-tool .zip-file-name:hover { color: var(--c-accent); }
+.page-zip-tool .zip-file-size { font-size: 11px; color: var(--c-text-faint); white-space: nowrap; flex-shrink: 0; }
+.page-zip-tool .zip-file-btn {
+  width: 26px; height: 26px; padding: 0; display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid transparent; border-radius: 5px;
+  color: var(--c-text-dim); cursor: pointer; transition: .15s; flex-shrink: 0; font-size: 12px;
+}
+.page-zip-tool .zip-file-btn.dl:hover { color: var(--c-accent); background: var(--c-accent-soft); border-color: var(--c-accent-border); }
+.page-zip-tool .zip-file-btn.remove:hover { color: var(--c-danger); background: var(--c-danger-soft); border-color: var(--c-danger-border); }
+
+.page-zip-tool .zip-file-preview {
+  flex: 1 1 100%; max-height: 200px; overflow-y: auto; margin-top: 4px;
+  padding: 10px 12px; background: var(--c-code-bg); border: 1px solid var(--c-code-border);
+  border-radius: var(--r-sm); font-family: var(--font-mono); font-size: 12px;
+  line-height: 1.55; color: var(--c-code-text); white-space: pre-wrap; word-break: break-all;
+}
+.page-zip-tool .zip-file-preview.binary { color: var(--c-text-faint); font-style: italic; font-family: var(--font-sans); }
+
+/* 空状态 */
+.page-zip-tool .zip-empty { text-align: center; padding: var(--sp-6) var(--sp-4); color: var(--c-text-faint); font-size: var(--fs-sm); display: flex; flex-direction: column; gap: 4px; border: 1px dashed var(--c-border); border-radius: var(--r); background: var(--c-surface-2); }
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 900px) {
+  .page-zip-tool { height: auto; display: block; }
+  .page-zip-tool .zip-workspace { grid-template-columns: 1fr; display: flex; flex-direction: column; gap: var(--sp-3); }
+  .page-zip-tool .zip-zone-body { max-height: 400px; }
+}

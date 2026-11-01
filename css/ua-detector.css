@@ -1,0 +1,117 @@
+/* =========================================================
+   浏览器 UA 检测 · 作用域 .page-ua
+   ========================================================= */
+.page-ua {
+  min-height: 100%;
+  padding: 32px 16px 56px;
+  display: flex; justify-content: center;
+  background-color: var(--c-bg);
+}
+
+.page-ua .ua-app { width: 100%; max-width: 940px; margin-top: 10px; }
+
+.page-ua .ua-hero {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 22px; border-radius: 18px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+html[data-theme="dark"] .page-ua .ua-hero {
+  background: linear-gradient(135deg, rgba(79,140,255,.15), rgba(139,92,246,.11));
+  border-color: rgba(255,255,255,.11);
+  box-shadow: none;
+}
+
+.page-ua .ua-icon {
+  flex: none; width: 56px; height: 56px; display: grid; place-items: center;
+  font-size: 26px; border-radius: 16px;
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+}
+html[data-theme="dark"] .page-ua .ua-icon {
+  background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.12);
+}
+
+.page-ua .ua-main { min-width: 0; }
+.page-ua .ua-title { font-size: 19px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.page-ua .ua-sub { font-size: 13px; color: var(--c-text-dim); margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.page-ua .ua-badge {
+  margin-left: auto; flex: none; padding: 7px 15px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 500; white-space: nowrap;
+  color: var(--c-accent); background: var(--c-accent-soft);
+  border: 1px solid var(--c-accent-border);
+}
+
+.page-ua .ua-sec-title {
+  margin: 24px 4px 11px; font-size: 12px; font-weight: 600;
+  letter-spacing: 1.4px; text-transform: uppercase; color: var(--c-text-dim);
+}
+
+.page-ua .ua-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 11px; }
+.page-ua .ua-card {
+  padding: 14px 16px; border-radius: 14px;
+  background: rgba(255,255,255,0.6); border: 1px solid var(--c-border);
+  transition: .2s; min-width: 0; display: flex; flex-direction: column; justify-content: center; min-height: 68px;
+  box-shadow: var(--shadow-sm); backdrop-filter: blur(8px);
+}
+html[data-theme="dark"] .page-ua .ua-card {
+  background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.1); box-shadow: none;
+}
+.page-ua .ua-card:hover { transform: translateY(-2px); border-color: var(--c-border-strong); }
+html[data-theme="dark"] .page-ua .ua-card:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.16); }
+
+.page-ua .ua-card .k { font-size: 12px; color: var(--c-text-dim); margin-bottom: 7px; }
+.page-ua .ua-card .v { font-size: 15px; font-weight: 600; word-break: break-word; line-height: 1.4; }
+
+.page-ua .ua-box {
+  margin-top: 24px; border-radius: 16px; overflow: hidden;
+  background: rgba(255,255,255,0.7); border: 1px solid var(--c-border);
+  backdrop-filter: blur(10px); box-shadow: var(--shadow-sm);
+}
+html[data-theme="dark"] .page-ua .ua-box {
+  background: rgba(255,255,255,.035); border-color: rgba(255,255,255,.1); box-shadow: none;
+}
+
+.page-ua .ua-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 18px; font-size: 13px; color: var(--c-text-dim); font-weight: 600;
+}
+.page-ua .ua-actions { display: flex; gap: 6px; flex: none; }
+.page-ua .ua-box pre {
+  padding: 16px 18px; font-size: 13px; line-height: 1.75;
+  font-family: var(--font-mono); color: var(--c-text-2);
+  white-space: pre-wrap; word-break: break-all;
+  border-top: 1px solid var(--c-border); margin: 0;
+}
+.page-ua .ua-box pre.hidden { display: none; }
+
+.page-ua button {
+  padding: 6px 15px; border-radius: 9px; font-size: 12.5px; font-weight: 500; cursor: pointer; font-family: inherit; transition: .2s;
+  color: var(--c-accent); background: var(--c-accent-soft); border: 1px solid var(--c-accent-border);
+}
+.page-ua button:hover { background: var(--c-surface-3); }
+.page-ua button.done { color: var(--c-ok); background: var(--c-ok-soft); border-color: var(--c-ok-border); }
+
+@media (max-width: 640px) {
+  .page-ua { padding: 12px 8px 12px; }
+  .page-ua .ua-hero { gap: 10px; padding: 10px 12px; border-radius: 12px; margin-bottom: 12px; }
+  .page-ua .ua-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 10px; }
+  .page-ua .ua-title { font-size: 15px; }
+  .page-ua .ua-sub { font-size: 11px; margin-top: 2px; }
+  .page-ua .ua-badge { padding: 4px 10px; font-size: 11px; border-radius: 8px; }
+  .page-ua .ua-sec-title { margin: 12px 4px 6px; font-size: 11px; }
+  .page-ua .ua-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .page-ua .ua-card { padding: 8px 9px; border-radius: 8px; min-height: 52px; box-shadow: none; }
+  .page-ua .ua-card .k { font-size: 10px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .page-ua .ua-card .v { font-size: 12px; font-weight: 500; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-all; }
+  .page-ua .ua-box { margin-top: 12px; border-radius: 10px; }
+  .page-ua .ua-head { padding: 8px 12px; font-size: 11.5px; }
+  .page-ua .ua-box pre { padding: 10px 12px; font-size: 11px; line-height: 1.6; }
+  .page-ua button { padding: 4px 10px; font-size: 11px; border-radius: 6px; }
+}
+
+@media (max-width: 359px) {
+  .page-ua .ua-grid { grid-template-columns: repeat(2, 1fr); }
+  .page-ua .ua-card .v { -webkit-line-clamp: 3; }
+}

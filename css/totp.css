@@ -1,0 +1,219 @@
+/* =========================================================
+   TOTP 两步验证 · 作用域 .page-totp
+   ========================================================= */
+.page-totp {
+  padding: var(--sp-4);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.page-totp .totp-app {
+  width: 100%;
+  max-width: 500px;
+  margin-top: var(--sp-5);
+}
+
+/* ---------- 输入区 ---------- */
+.page-totp .field label {
+  display: block;
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-2);
+}
+.page-totp .input-group {
+  display: flex;
+  align-items: center;
+  border-radius: var(--r);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  transition: border-color .18s, box-shadow .18s;
+}
+.page-totp .input-group:focus-within {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+.page-totp .input-group input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  letter-spacing: .6px;
+}
+.page-totp .input-group input::placeholder {
+  color: var(--c-text-faint);
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+}
+.page-totp .icon-btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-right: 4px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-text-dim);
+  cursor: pointer;
+  transition: .15s;
+}
+.page-totp .icon-btn:hover {
+  background: var(--c-surface-3);
+  color: var(--c-text);
+}
+
+/* ---------- 验证码面板 ---------- */
+.page-totp .code-panel {
+  margin-top: var(--sp-4);
+  padding: var(--sp-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  border-radius: var(--r-lg);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+}
+.page-totp .code-main { min-width: 0; }
+.page-totp .code {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent);
+  white-space: nowrap;
+}
+.page-totp .code.empty {
+  color: var(--c-text-faint);
+  font-weight: 500;
+  letter-spacing: .2em;
+}
+.page-totp .code-hint {
+  margin-top: 6px;
+  font-size: var(--fs-xs);
+  color: var(--c-text-dim);
+}
+
+/* 倒计时圆环 */
+.page-totp .ring-wrap {
+  position: relative;
+  flex: 0 0 auto;
+  width: 68px;
+  height: 68px;
+}
+.page-totp .ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.page-totp .ring-bg {
+  fill: none;
+  stroke: var(--c-border-strong);
+  stroke-width: 4.5;
+}
+.page-totp .ring-fg {
+  fill: none;
+  stroke: var(--c-accent);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  transition: stroke .25s ease;
+}
+.page-totp .ring-fg.warn { stroke: var(--c-danger); }
+.page-totp .ring-text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-md);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text);
+}
+
+/* ---------- 复制按钮 ---------- */
+.page-totp .primary-btn {
+  width: 100%;
+  margin-top: var(--sp-4);
+  padding: 12px;
+  border: 0;
+  border-radius: var(--r);
+  background: var(--c-accent);
+  color: #fff;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter .2s, transform .1s;
+}
+.page-totp .primary-btn:hover:not(:disabled) { background: var(--c-accent-hover); }
+.page-totp .primary-btn:active:not(:disabled) { transform: scale(.985); }
+.page-totp .primary-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ---------- 高级选项 ---------- */
+.page-totp .advanced {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-border);
+}
+.page-totp .advanced summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-dim);
+  transition: color .15s;
+}
+.page-totp .advanced summary:hover { color: var(--c-text); }
+.page-totp .advanced summary::-webkit-details-marker { display: none; }
+.page-totp .advanced summary::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform .2s ease;
+}
+.page-totp .advanced[open] summary::before { transform: rotate(90deg); }
+
+.page-totp .opt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+.page-totp .opt { display: flex; flex-direction: column; gap: 4px; }
+.page-totp .opt span { font-size: var(--fs-xs); color: var(--c-text-dim); }
+.page-totp .opt select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  outline: none;
+  cursor: pointer;
+}
+.page-totp .opt select:focus { border-color: var(--c-accent); }
+
+.page-totp .footnote {
+  margin: var(--sp-4) 0 0;
+  text-align: center;
+  font-size: var(--fs-xs);
+  color: var(--c-text-faint);
+}

@@ -1,0 +1,256 @@
+/* =========================================================
+   C 语言语法速查 · 作用域 .page-cheatsheet
+   方案 A：浅色页面 + 深色代码块
+   ========================================================= */
+.page-cheatsheet{padding:var(--sp-4)}
+.page-cheatsheet .cs-shell{
+  max-width:1240px;margin:0 auto;
+  display:flex;flex-direction:column;gap:var(--sp-3);
+}
+
+/* ---------- 搜索栏 ---------- */
+.page-cheatsheet .cs-search-row{
+  display:flex;gap:var(--sp-2);align-items:center;
+}
+.page-cheatsheet .cs-search{
+  position:relative;flex:1;min-width:0;
+}
+.page-cheatsheet .cs-search svg{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;
+  stroke:var(--c-text-dim);fill:none;stroke-width:2;
+  pointer-events:none;
+}
+.page-cheatsheet .cs-search input{
+  padding-left:38px;padding-right:38px;height:38px;
+}
+.page-cheatsheet .cs-clear{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;
+  border:none;border-radius:var(--r-sm);
+  background:transparent;color:var(--c-text-dim);
+  font-size:14px;line-height:1;cursor:pointer;
+  display:none;
+}
+.page-cheatsheet .cs-clear:hover{background:var(--c-surface-3);color:var(--c-text)}
+.page-cheatsheet .cs-clear.show{display:block}
+
+/* ---------- 分类 ---------- */
+.page-cheatsheet .cs-cats{
+  display:flex;gap:var(--sp-1);flex-wrap:wrap;
+}
+.page-cheatsheet .cs-cats button{
+  padding:5px 13px;font-size:var(--fs-sm);
+  color:var(--c-text-dim);
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-pill);
+  transition:.15s;
+}
+.page-cheatsheet .cs-cats button:hover{
+  color:var(--c-text);
+  border-color:var(--c-border-strong);
+}
+.page-cheatsheet .cs-cats button.active{
+  color:#fff;background:var(--c-accent);border-color:var(--c-accent);
+  font-weight:600;
+}
+
+/* ---------- 元信息 ---------- */
+.page-cheatsheet .cs-meta{
+  font-size:var(--fs-sm);color:var(--c-text-dim);
+  min-height:20px;
+  display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;
+}
+.page-cheatsheet .cs-meta .quick{
+  display:inline-flex;gap:6px;margin-left:auto;align-items:center;
+}
+.page-cheatsheet .cs-meta .quick .label{
+  font-size:11px;color:var(--c-text-faint);margin-right:2px;
+}
+/* 通用外链组件在 meta 区域：右侧内联，不继承卡片底部 padding */
+.page-cheatsheet .cs-meta .ext-actions{
+  display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;
+  margin-left:auto;padding:0;
+}
+
+/* ---------- 列表 ---------- */
+.page-cheatsheet .cs-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:var(--sp-4);
+  align-items:start;
+}
+
+/* ---------- 卡片 ---------- */
+.page-cheatsheet .cs-card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-sm);
+  transition:border-color .15s, box-shadow .15s;
+}
+.page-cheatsheet .cs-card:hover{
+  border-color:var(--c-border-strong);
+  box-shadow:var(--shadow);
+}
+.page-cheatsheet .cs-card-head{
+  padding:13px 16px 6px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+}
+.page-cheatsheet .cs-card-head h3{
+  margin:0;font-size:var(--fs-md);font-weight:600;letter-spacing:.2px;
+}
+.page-cheatsheet .cs-badge{
+  font-size:11px;font-weight:600;
+  padding:2px 8px;border-radius:var(--r-pill);
+  color:var(--c-accent-hover);
+  background:var(--c-accent-soft);
+  border:1px solid var(--c-accent-border);
+  white-space:nowrap;flex-shrink:0;
+}
+.page-cheatsheet .cs-card p{
+  margin:0;padding:0 16px 12px;
+  color:var(--c-text-dim);font-size:var(--fs-sm);
+}
+
+/* ---------- 代码块 ---------- */
+.page-cheatsheet .cs-codewrap{
+  position:relative;
+  border-top:1px solid var(--c-border);
+}
+.page-cheatsheet .cs-codewrap pre{
+  margin:0;padding:13px 16px;
+  background:var(--c-code-bg);
+  overflow-x:auto;
+}
+.page-cheatsheet .cs-codewrap code{
+  font-family:var(--font-mono);
+  font-size:12.5px;line-height:1.7;
+  color:var(--c-code-text);
+  white-space:pre;display:block;
+}
+.page-cheatsheet .cs-copy{
+  position:absolute;top:8px;right:8px;
+  padding:3px 9px;font-size:11px;
+  color:var(--c-code-dim);
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--r-sm);
+  cursor:pointer;
+  opacity:0;transition:.15s;
+}
+.page-cheatsheet .cs-codewrap:hover .cs-copy{opacity:1}
+.page-cheatsheet .cs-copy:hover{
+  color:var(--c-code-text);
+  border-color:var(--c-accent);
+  background:var(--c-surface-2);
+}
+
+/* ---------- 标签 ---------- */
+.page-cheatsheet .cs-tags{
+  padding:9px 16px;
+  display:flex;gap:6px;flex-wrap:wrap;
+}
+.page-cheatsheet .cs-tags span{
+  font-size:11px;color:var(--c-text-dim);
+  background:var(--c-surface-3);
+  padding:2px 8px;border-radius:var(--r-sm);
+}
+
+/* ---------- 外链按钮（兼容旧 .cs-actions / .cs-ext 与通用 .ext-actions / .ext-btn） ---------- */
+.page-cheatsheet .cs-actions,
+.page-cheatsheet .ext-actions{
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+  padding:0 16px 13px;
+}
+.page-cheatsheet .cs-actions .ext-label,
+.page-cheatsheet .ext-actions .ext-label{
+  font-size:10px;color:var(--c-text-faint);
+  letter-spacing:.5px;margin-right:2px;
+}
+.page-cheatsheet .cs-ext,
+.page-cheatsheet .ext-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;padding:4px 10px;border-radius:var(--r-sm);
+  border:1px solid var(--c-border);
+  color:var(--c-text-dim);text-decoration:none;
+  background:var(--c-surface-2);
+  transition:.15s;
+}
+.page-cheatsheet .cs-ext:hover,
+.page-cheatsheet .ext-btn:hover{
+  color:var(--c-text);text-decoration:none;
+  border-color:var(--c-accent);
+  background:var(--c-accent-soft);
+}
+.page-cheatsheet .cs-ext svg,
+.page-cheatsheet .ext-btn svg{
+  width:11px;height:11px;
+  stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+  flex-shrink:0;
+}
+
+/* ---------- 高级索引卡片 ---------- */
+.page-cheatsheet .cs-card.adv{
+  background:linear-gradient(180deg,
+    var(--c-surface) 0%,
+    var(--c-surface-2) 100%);
+  border-style:dashed;
+}
+.page-cheatsheet .cs-card.adv:hover{border-color:var(--c-warn)}
+.page-cheatsheet .cs-card.adv p{color:var(--c-text-faint)}
+.page-cheatsheet .cs-badge.ext-badge{
+  color:var(--c-warn);
+  background:rgba(245,158,11,.12);
+  border-color:rgba(245,158,11,.3);
+}
+
+.page-cheatsheet .adv-note{
+  grid-column:1/-1;
+  display:flex;align-items:center;gap:12px;
+  font-size:var(--fs-xs);color:var(--c-text-dim);
+  padding:6px 2px 2px;
+}
+.page-cheatsheet .adv-note::before,
+.page-cheatsheet .adv-note::after{
+  content:'';flex:1;height:1px;background:var(--c-border);
+}
+
+/* ---------- 高亮 ---------- */
+.page-cheatsheet mark{
+  background:rgba(250,204,21,.35);
+  color:var(--c-text);
+  border-radius:3px;padding:0 1px;
+}
+html[data-theme="dark"] .page-cheatsheet mark{
+  background:rgba(250,204,21,.3);
+  color:#fef3c7;
+}
+
+/* ---------- 空状态 ---------- */
+.page-cheatsheet .cs-empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:60px 20px;
+  color:var(--c-text-dim);
+}
+.page-cheatsheet .cs-empty strong{
+  display:block;font-size:16px;color:var(--c-text);margin-bottom:6px;
+}
+.page-cheatsheet .cs-empty span{font-size:var(--fs-sm)}
+.page-cheatsheet .cs-empty .cs-actions,
+.page-cheatsheet .cs-empty .ext-actions{
+  justify-content:center;padding:18px 0 0;
+}
+
+/* ---------- 小屏 ---------- */
+@media (max-width:640px){
+  .page-cheatsheet .cs-list{grid-template-columns:1fr}
+  .page-cheatsheet .cs-copy{opacity:1}
+  .page-cheatsheet .cs-meta .quick,
+  .page-cheatsheet .cs-meta .ext-actions{margin-left:0;width:100%}
+}
