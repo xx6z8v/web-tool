@@ -51,7 +51,7 @@ function buildSidebar() {
 
 /* =========================================================
    注入 fullTitle（emoji + 文字），供顶栏显示
-   主页除外（保留内部大标题，顶栏回落到 title = "工具箱"）
+   主页除外（保留内部大标题，顶栏回落到 title = "主页"）
    ========================================================= */
 function injectFullTitles() {
   TOOLS_CONFIG.forEach(t => {
@@ -66,7 +66,7 @@ function injectFullTitles() {
    自动生成主页卡片（按分类分组）
    ========================================================= */
 App.registerPage('home', {
-  title: '工具箱',
+  title: '主页',
   template: () => {
     const groups = {};
     TOOLS_CONFIG.forEach(t => {

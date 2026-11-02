@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="工具箱图标">
+  <title>工具箱</title>
+
+  <defs>
+    <linearGradient id="bg" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="22" y1="20" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9"/>
+      <stop offset="1" stop-color="#A7F3D0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角背景 -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+
+  <!-- 工具箱提手 -->
+  <path
+    d="M24 22v-4a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v4"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+
+  <!-- 工具箱主体 -->
+  <rect
+    x="14"
+    y="22"
+    width="36"
+    height="28"
+    rx="6"
+    fill="#FFFFFF"
+    fill-opacity="0.16"
+    stroke="#FFFFFF"
+    stroke-width="3"
+  />
+
+  <!-- 箱体分隔线 -->
+  <path d="M14 32h36" stroke="#FFFFFF" stroke-width="3"/>
+
+  <!-- 工具网格装饰 -->
+  <rect x="22" y="38" width="8" height="6" rx="2" fill="url(#accent)"/>
+  <rect x="34" y="38" width="8" height="6" rx="2" fill="url(#accent)"/>
+</svg>
