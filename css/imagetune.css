@@ -1,0 +1,235 @@
+/* =========================================================
+   图片处理 · 作用域 .page-imagetune
+   ========================================================= */
+.page-imagetune { padding: var(--sp-4); }
+.page-imagetune .it-app { max-width: 1080px; margin: 0 auto; }
+
+.page-imagetune .it-subtitle {
+  color: var(--c-text-dim);
+  font-size: var(--fs-sm);
+  margin: 0 0 var(--sp-5) 0;
+}
+
+/* 拖放区 */
+.page-imagetune .it-dropzone {
+  border: 2px dashed var(--c-border-strong);
+  border-radius: var(--r-lg);
+  padding: 48px 20px;
+  text-align: center; cursor: pointer;
+  transition: all .2s; background: var(--c-surface-2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+}
+.page-imagetune .it-dropzone:hover,
+.page-imagetune .it-dropzone.dragover {
+  border-color: var(--c-accent); background: var(--c-accent-soft);
+}
+.page-imagetune .it-dropzone .dz-icon {
+  font-size: 48px; line-height: 1;
+}
+.page-imagetune .it-dropzone .dz-title {
+  font-size: var(--fs-lg); font-weight: 600; color: var(--c-text); margin: 0;
+}
+.page-imagetune .it-dropzone .dz-desc {
+  font-size: var(--fs-sm); color: var(--c-text-dim); margin: 0;
+}
+.page-imagetune .it-dropzone .dz-desc span {
+  color: var(--c-accent); font-weight: 600;
+}
+
+/* 空状态功能介绍区 */
+.page-imagetune .it-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--sp-4);
+  margin-top: var(--sp-6);
+  animation: it-fade-in 0.3s ease;
+}
+@keyframes it-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.page-imagetune .it-feature-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  box-shadow: var(--shadow-sm);
+}
+.page-imagetune .it-feature-icon {
+  font-size: 24px; line-height: 1.2;
+}
+.page-imagetune .it-feature-text h4 {
+  margin: 0 0 4px 0; font-size: var(--fs-md); color: var(--c-text);
+}
+.page-imagetune .it-feature-text p {
+  margin: 0; font-size: var(--fs-xs); color: var(--c-text-dim); line-height: 1.5;
+}
+
+/* 文件列表 */
+.page-imagetune .it-filelist {
+  margin-top: var(--sp-4); max-height: 180px; overflow-y: auto;
+  border: 1px solid var(--c-border); border-radius: var(--r);
+  background: var(--c-surface);
+}
+.page-imagetune .it-fileitem {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; font-size: var(--fs-sm);
+  border-bottom: 1px solid var(--c-border); gap: 12px;
+}
+.page-imagetune .it-fileitem:last-child { border-bottom: none; }
+.page-imagetune .it-fileitem .it-name {
+  flex: 1; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; color: var(--c-text);
+}
+.page-imagetune .it-fileitem .it-meta {
+  color: var(--c-text-faint); white-space: nowrap; font-size: var(--fs-xs);
+}
+.page-imagetune .it-fileitem .it-remove {
+  color: var(--c-danger); cursor: pointer; font-weight: 600;
+  background: none; border: none; font-size: 15px; padding: 0 4px;
+}
+
+/* 配置面板 */
+.page-imagetune .it-panel {
+  margin-top: var(--sp-5);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  background: var(--c-surface);
+}
+.page-imagetune .it-panel-title {
+  font-size: var(--fs-sm); font-weight: 700;
+  color: var(--c-text); margin-bottom: var(--sp-4);
+}
+.page-imagetune .it-section-label {
+  font-size: var(--fs-xs); font-weight: 700;
+  color: var(--c-text-dim); text-transform: uppercase;
+  letter-spacing: .05em; margin: var(--sp-4) 0 var(--sp-2);
+}
+.page-imagetune .it-section-label:first-of-type { margin-top: 0; }
+.page-imagetune .it-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--sp-3);
+}
+.page-imagetune .it-field label {
+  display: block; font-size: var(--fs-xs); font-weight: 600;
+  color: var(--c-text-2); margin-bottom: 4px;
+  text-transform: uppercase; letter-spacing: .03em;
+}
+.page-imagetune .it-field input,
+.page-imagetune .it-field select {
+  width: 100%; padding: 6px 10px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm);
+  background: var(--c-surface); color: var(--c-text);
+  outline: none;
+}
+.page-imagetune .it-field input:focus,
+.page-imagetune .it-field select:focus {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+.page-imagetune .it-field input[type="range"] { padding: 0; height: 36px; }
+.page-imagetune .it-hint {
+  font-size: var(--fs-xs); color: var(--c-text-faint); margin-top: 2px;
+}
+.page-imagetune .hidden { display: none !important; }
+
+/* 预设按钮 */
+.page-imagetune .it-presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.page-imagetune .it-preset-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  font-size: var(--fs-xs); cursor: pointer; color: var(--c-text-dim);
+  transition: all .15s;
+}
+.page-imagetune .it-preset-btn:hover {
+  border-color: var(--c-accent); color: var(--c-accent);
+}
+
+/* 操作区 */
+.page-imagetune .it-actions {
+  display: flex; gap: 12px; margin-top: var(--sp-4);
+  flex-wrap: wrap; align-items: center;
+}
+.page-imagetune .btn-sm { padding: 5px 10px; font-size: var(--fs-xs); }
+.page-imagetune .btn-danger {
+  color: #fff; background: var(--c-danger); border-color: var(--c-danger);
+}
+.page-imagetune .btn-danger:hover:not(:disabled) { opacity: .9; }
+
+/* 状态栏 */
+.page-imagetune .it-status {
+  margin-top: 12px; font-size: var(--fs-sm); min-height: 1.2em;
+}
+.page-imagetune .it-status.error   { color: var(--c-danger); }
+.page-imagetune .it-status.success { color: var(--c-ok); }
+.page-imagetune .it-status.info    { color: var(--c-text-dim); }
+
+/* 复选框行 */
+.page-imagetune .it-checkrow {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin-top: 8px; font-size: var(--fs-sm); color: var(--c-text-2);
+}
+.page-imagetune .it-checkrow label {
+  display: flex; align-items: center; gap: 4px; cursor: pointer;
+}
+.page-imagetune .it-jpeg-hint {
+  color: var(--c-warn); font-size: var(--fs-xs);
+  margin-top: 6px; display: none;
+}
+
+/* 结果区 */
+.page-imagetune .it-result-area { margin-top: var(--sp-5); display: none; }
+.page-imagetune .it-result-area.show { display: block; }
+.page-imagetune .it-result-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: var(--sp-3); flex-wrap: wrap; gap: 8px;
+}
+.page-imagetune .it-result-toolbar .it-count {
+  font-size: var(--fs-sm); font-weight: 600; color: var(--c-text);
+}
+.page-imagetune .it-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--sp-4);
+}
+.page-imagetune .it-result-card {
+  border: 1px solid var(--c-border); border-radius: var(--r-lg);
+  overflow: hidden; background: var(--c-surface);
+}
+.page-imagetune .it-result-card .it-thumb {
+  width: 100%; height: 160px; object-fit: contain;
+  background: repeating-conic-gradient(var(--c-surface-3) 0% 25%, var(--c-surface) 0% 50%) 50% / 16px 16px;
+}
+.page-imagetune .it-result-card .it-info {
+  padding: 10px 12px; font-size: var(--fs-xs); color: var(--c-text-dim);
+}
+.page-imagetune .it-result-card .it-info strong {
+  color: var(--c-text-2); display: block; margin-bottom: 3px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.page-imagetune .it-result-card .it-info .it-dim {
+  color: var(--c-accent); font-weight: 600;
+}
+.page-imagetune .it-result-card .it-download {
+  display: block; text-align: center; padding: 6px;
+  background: var(--c-surface-2); color: var(--c-text);
+  text-decoration: none; font-size: var(--fs-xs);
+  font-weight: 600; border-top: 1px solid var(--c-border);
+}
+.page-imagetune .it-result-card .it-download:hover {
+  background: var(--c-accent-soft); color: var(--c-accent);
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .page-imagetune .it-panel { padding: var(--sp-4); }
+  .page-imagetune .it-grid { grid-template-columns: 1fr 1fr; }
+  .page-imagetune .it-features { grid-template-columns: 1fr; }
+}

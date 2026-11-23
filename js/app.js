@@ -23,7 +23,13 @@ const TOOLS_CONFIG = [
   // 开发者与测试
   { id: 'whiteboard',          name: '云画板',         icon: '🎨', cat: '开发者与测试', desc: '多画布、撤销重做、背景图、导出 PNG' },
   { id: 'zip-tool',            name: 'ZIP 压缩解压',   icon: '📦', cat: '开发者与测试', desc: '解压筛选导出 / 多文件打包压缩，全程本地' },
-  { id: 'ua-detector',         name: 'UA 检测',        icon: '🌐', cat: '开发者与测试', desc: '识别浏览器、系统、设备型号与环境信息' }
+  { id: 'ua-detector',         name: 'UA 检测',        icon: '🌐', cat: '开发者与测试', desc: '识别浏览器、系统、设备型号与环境信息' },
+
+  // 时间与效率
+  { id: 'clock',               name: '多功能时钟',     icon: '⏰', cat: '时间与效率', desc: '时区时钟 / 倒计时 / 秒表 / 闹钟 / 番茄钟' },
+
+  // 图片与媒体
+  { id: 'imagetune',           name: '图片处理',       icon: '🖼️', cat: '图片与媒体', desc: '缩放 / 裁剪 / 圆角 / 旋转 / 水印 / 打包下载' }
 ];
 
 /* =========================================================
@@ -145,13 +151,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const backdrop = document.getElementById('sidebarBackdrop');
   const toggleBtn = document.getElementById('sidebarToggle');
   const isMobile = () => window.innerWidth <= 768;
+  
+  const SIDEBAR_KEY = 'toolbox:sidebarCollapsed';
 
+  // 1. 初始化桌面端侧边栏状态（如果之前存了折叠，就直接折叠）
+  if (!isMobile()) {
+    try {
+      if (localStorage.getItem(SIDEBAR_KEY) === 'true') {
+        sidebar.classList.add('collapsed');
+      }
+    } catch (_) {}
+  }
+
+  // 2. 点击切换
   toggleBtn.addEventListener('click', () => {
     if (isMobile()) {
       sidebar.classList.toggle('open');
       backdrop.classList.toggle('show');
     } else {
-      sidebar.classList.toggle('collapsed');
+      const isCollapsed = sidebar.classList.toggle('collapsed');
+      // 记住桌面端的状态
+      try { localStorage.setItem(SIDEBAR_KEY, isCollapsed ? 'true' : 'false'); } catch (_) {}
     }
   });
 
@@ -169,12 +189,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // 3. 响应式窗口变化处理（重点优化了桌面端与移动端切换时的状态恢复）
   let lastIsMobile = isMobile();
   window.addEventListener('resize', () => {
     const nowMobile = isMobile();
     if (lastIsMobile !== nowMobile) {
-      sidebar.classList.remove('open', 'collapsed');
+      sidebar.classList.remove('open');
       backdrop.classList.remove('show');
+      
+      // 如果切回了桌面端，要恢复之前记录的折叠状态
+      if (!nowMobile) {
+        try {
+          if (localStorage.getItem(SIDEBAR_KEY) === 'true') {
+            sidebar.classList.add('collapsed');
+          } else {
+            sidebar.classList.remove('collapsed');
+          }
+        } catch (_) {}
+      } else {
+        // 如果切到了移动端，由于移动端没有 collapsed 概念（只有抽屉），先移除
+        sidebar.classList.remove('collapsed');
+      }
+      
       lastIsMobile = nowMobile;
     }
   });

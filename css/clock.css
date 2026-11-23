@@ -1,0 +1,271 @@
+/* =========================================================
+   多功能时钟 · 作用域 .page-clock
+   ========================================================= */
+.page-clock { padding: var(--sp-4); }
+.page-clock .clk-app { max-width: 880px; margin: 0 auto; }
+
+/* ---------- 顶部主时钟 ---------- */
+.page-clock .clk-hero {
+  background: linear-gradient(180deg, var(--c-accent-soft), transparent 65%), var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 22px 24px 20px;
+  box-shadow: var(--shadow);
+}
+.page-clock .clk-hero-top {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.page-clock .clk-big-time {
+  font-family: var(--font-mono);
+  font-size: clamp(46px, 12vw, 86px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.06;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  margin: 6px 0 0;
+  background: linear-gradient(180deg, var(--c-text), var(--c-text-dim));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+html[data-theme="dark"] .page-clock .clk-big-time {
+  background: linear-gradient(180deg, #ffffff, #9db8e0);
+  -webkit-background-clip: text; background-clip: text;
+}
+.page-clock .clk-big-date {
+  text-align: center; color: var(--c-text-dim);
+  font-size: 15px; margin-top: 6px;
+}
+.page-clock .clk-hero-meta {
+  display: grid; grid-template-columns: 1fr;
+  gap: 10px; margin-top: 20px;
+}
+.page-clock .clk-meta-item {
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  border-radius: var(--r); padding: 10px 14px;
+  display: flex; flex-direction: column; gap: 4px; min-width: 0;
+}
+.page-clock .clk-meta-label { font-size: 12px; color: var(--c-text-dim); letter-spacing: .5px; }
+.page-clock .clk-meta-value {
+  font-family: var(--font-mono); font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.page-clock .clk-tz-select {
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  color: var(--c-text); padding: 8px 12px; border-radius: var(--r);
+  font-size: 13px; font-family: inherit; cursor: pointer;
+  max-width: 250px; outline: none;
+}
+.page-clock .clk-tz-select:focus {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+
+/* ---------- 标签页 ---------- */
+.page-clock .clk-tabs {
+  display: flex; gap: 6px; margin: 20px 0 14px;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  padding: 6px; border-radius: var(--r-lg); overflow-x: auto;
+}
+.page-clock .clk-tab {
+  flex: 1; min-width: 84px;
+  padding: 10px 14px; border: none; border-radius: var(--r);
+  background: transparent; color: var(--c-text-dim);
+  font-size: 14px; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: all .18s; white-space: nowrap;
+}
+.page-clock .clk-tab:hover { color: var(--c-text); background: var(--c-surface-2); }
+.page-clock .clk-tab.active {
+  background: var(--c-accent); color: #fff; box-shadow: var(--shadow-sm);
+}
+
+/* ---------- 面板 ---------- */
+.page-clock .clk-panel {
+  display: none;
+  background: var(--c-surface); border: 1px solid var(--c-border);
+  border-radius: var(--r-lg); padding: 26px 24px;
+}
+.page-clock .clk-panel.active { display: block; animation: clk-fade .25s ease; }
+@keyframes clk-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+.page-clock .clk-display {
+  font-family: var(--font-mono);
+  font-size: clamp(40px, 10vw, 62px);
+  font-weight: 700; text-align: center;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 1px; margin: 8px 0 18px;
+  color: var(--c-text);
+}
+.page-clock .clk-progress {
+  height: 6px; background: var(--c-surface-2);
+  border-radius: var(--r-pill); overflow: hidden; margin-bottom: 22px;
+}
+.page-clock .clk-progress-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--c-accent), var(--c-ok));
+  border-radius: var(--r-pill); transition: width .08s linear;
+}
+.page-clock .clk-row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+.page-clock .clk-row:last-child { margin-bottom: 0; }
+.page-clock .clk-row label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: var(--c-text-dim);
+}
+
+/* ---------- 输入 ---------- */
+.page-clock input[type="number"]::-webkit-outer-spin-button,
+.page-clock input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+.page-clock input[type="number"] { -moz-appearance: textfield; }
+
+.page-clock #panel-countdown .clk-row label {
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  border-radius: var(--r); padding: 6px 16px; color: var(--c-text-dim);
+  transition: border-color .2s, box-shadow .2s;
+}
+.page-clock #panel-countdown .clk-row label:focus-within {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+.page-clock #panel-countdown input[type="number"] {
+  background: transparent; border: none; border-radius: 0;
+  padding: 0; font-size: 22px; font-weight: 700; width: 42px;
+  color: var(--c-text); text-align: center;
+  font-family: var(--font-mono); outline: none;
+}
+.page-clock input[type="time"],
+.page-clock input[type="text"] {
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  color: var(--c-text); border-radius: var(--r);
+  padding: 9px 12px; font-size: 15px;
+  font-family: inherit; outline: none;
+  transition: border-color .15s;
+}
+.page-clock input[type="time"]:focus,
+.page-clock input[type="text"]:focus {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px var(--c-accent-soft);
+}
+.page-clock input[type="text"] { width: 170px; }
+.page-clock input[type="time"] { font-family: var(--font-mono); }
+
+/* ---------- 按钮 ---------- */
+.page-clock .clk-btn {
+  padding: 10px 22px; border-radius: var(--r);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface-2); color: var(--c-text);
+  font-size: 15px; font-family: inherit; cursor: pointer;
+  font-weight: 500; transition: all .15s;
+}
+.page-clock .clk-btn:hover {
+  background: var(--c-surface-3); border-color: var(--c-border-strong);
+}
+.page-clock .clk-btn:active { transform: scale(.97); }
+.page-clock .clk-btn.primary {
+  background: var(--c-accent); border-color: var(--c-accent);
+  color: #fff; box-shadow: var(--shadow-sm);
+}
+.page-clock .clk-btn.primary:hover { background: var(--c-accent-hover); }
+.page-clock .clk-btn.danger {
+  background: var(--c-danger-soft);
+  border-color: var(--c-danger-border);
+  color: var(--c-danger);
+}
+.page-clock .clk-btn.danger:hover { opacity: .85; }
+.page-clock .clk-btn.small { padding: 7px 14px; font-size: 13px; }
+.page-clock .clk-btn.ghost { background: transparent; }
+
+/* ---------- 秒表计次列表 ---------- */
+.page-clock .clk-laps {
+  list-style: none; padding: 0; margin: 18px 0 0;
+  max-height: 240px; overflow-y: auto;
+}
+.page-clock .clk-laps li {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--c-border);
+  font-family: var(--font-mono); font-size: 14px;
+}
+.page-clock .clk-laps li:last-child { border-bottom: none; }
+.page-clock .clk-lap-idx { color: var(--c-text-dim); }
+
+/* ---------- 闹钟列表 ---------- */
+.page-clock .clk-alarm-list { list-style: none; padding: 0; margin: 18px 0 0; }
+.page-clock .clk-alarm-item {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  border-radius: var(--r); padding: 12px 16px; margin-bottom: 10px;
+  transition: opacity .2s;
+}
+.page-clock .clk-alarm-item.off { opacity: .42; }
+.page-clock .clk-alarm-time {
+  font-size: 26px; font-weight: 700;
+  font-family: var(--font-mono); letter-spacing: 1px;
+}
+.page-clock .clk-alarm-label {
+  flex: 1; color: var(--c-text-dim); font-size: 14px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.page-clock .clk-empty-tip {
+  color: var(--c-text-dim); text-align: center;
+  padding: 24px; font-size: 14px;
+}
+
+/* ---------- 番茄钟 ---------- */
+.page-clock .clk-pomo-mode {
+  text-align: center; font-size: 13px; letter-spacing: 3px;
+  color: var(--c-accent); margin-bottom: 2px; font-weight: 600;
+}
+.page-clock .clk-pomo-mode.break { color: var(--c-ok); }
+.page-clock .clk-pomo-dots {
+  display: flex; justify-content: center; gap: 10px; margin-top: 20px;
+}
+.page-clock .clk-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  transition: all .25s;
+}
+.page-clock .clk-dot.done {
+  background: var(--c-accent); border-color: var(--c-accent);
+  box-shadow: 0 0 12px var(--c-accent-border);
+}
+.page-clock #panel-pomodoro input[type="number"] {
+  width: 60px; padding: 6px; font-size: 16px;
+  border-radius: var(--r-sm);
+  background: var(--c-surface-2); border: 1px solid var(--c-border);
+  color: var(--c-text); text-align: center;
+  font-family: var(--font-mono); outline: none;
+}
+
+/* ---------- 页面挂 body 的 toast（可跨页面可见） ---------- */
+.clk-toast-global {
+  position: fixed; left: 50%; bottom: 34px;
+  transform: translate(-50%, 24px);
+  background: var(--c-surface); border: 1px solid var(--c-accent);
+  color: var(--c-text); padding: 14px 28px;
+  border-radius: var(--r-lg); font-size: 15px;
+  box-shadow: var(--shadow-lg);
+  opacity: 0; pointer-events: none; z-index: 9999;
+  max-width: 90vw; text-align: center; cursor: pointer;
+  transition: all .3s cubic-bezier(.2,.9,.3,1.2);
+}
+.clk-toast-global.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+
+@media (max-width: 560px) {
+  .page-clock .clk-hero { padding: 18px 16px; }
+  .page-clock .clk-panel { padding: 20px 16px; }
+  .page-clock .clk-alarm-time { font-size: 21px; }
+  .page-clock .clk-alarm-item { gap: 10px; padding: 10px 12px; }
+  .page-clock .clk-btn { padding: 9px 16px; font-size: 14px; }
+  .page-clock #panel-countdown .clk-row label { padding: 4px 12px; gap: 6px; }
+  .page-clock #panel-countdown input[type="number"] { width: 36px; font-size: 20px; }
+}
